@@ -27,6 +27,13 @@ const RegistrationComponent = () => {
       }
       
   }
+  const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    }
   return (
     <>
     <BeatLoaders modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -46,8 +53,8 @@ const RegistrationComponent = () => {
           {/* Registration form or content goes here */}
           <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
             <form onSubmit={handleSubmit} className="space-y-4">
-                <Input type="text" name="name" label="Name" placeholder="Enter your name" />
-                <Input type="text" name="company" label="Company" placeholder="Enter your company" />
+                <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
+                <Input type="text" onChange={handleChange} name="company" label="Company" placeholder="Enter your company" />
                 <button
                   type="submit"
                   className="bg-green-800 col-span-6 transitions hover:bg-opacity-80 border font-bold border-black flex-rows gap-4 text-white
