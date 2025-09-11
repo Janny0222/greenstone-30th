@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MainModal from "../../modals/MainModal";
 import { BeatLoader } from "react-spinners";
 
