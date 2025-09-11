@@ -2,9 +2,9 @@ import React from 'react'
 import MainModal from '../../modals/MainModal'
 import { BeatLoader } from 'react-spinners'
 
-const BeatLoaders = () => {
+const BeatLoaders = ({modalOpen, setModalOpen}) => {
   return (
-    <MainModal>
+    <MainModal  modalOpen={modalOpen} setModalOpen={setModalOpen}>
         <BeatLoader
           size={15}
           margin={2}
