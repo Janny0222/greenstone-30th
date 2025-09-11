@@ -9,17 +9,23 @@ const RegistrationComponent = () => {
           name: "",
           company: "",
       })
+  const [guestData, setGuestData] = React.useState(null)
   const [error, setError] = React.useState(null)
   const [modalOpen, setModalOpen] = React.useState(false)
+  const [status, setStatus] = React.useState("loading"); // loading | success
 
   const handleSubmit = (e) => {
       e.preventDefault();
       try {
           const registeredGuest = addGuest(formData);
+          
           if(registeredGuest.error){
               setError(registeredGuest)
+              setStatus("loading")
           } else {
+              registeredGuest.then(data => setGuestData(data))
               setModalOpen(true)
+              
               setFormData({})
           }
       } catch (error) {
@@ -36,7 +42,7 @@ const RegistrationComponent = () => {
     }
   return (
     <>
-    <BeatLoaders modalOpen={modalOpen} setModalOpen={setModalOpen} />
+    <BeatLoaders modalOpen={modalOpen} setModalOpen={setModalOpen} guestData={guestData} setStatus={setStatus} status={status} />
     <div className="flex flex-col min-h-screen bg-gray-50">
         {/* Navbar */}
         <header className="bg-green-800 text-white shadow-md">
@@ -48,23 +54,46 @@ const RegistrationComponent = () => {
             </div>
           </div>
         </header>
-        <main className="flex justify-center items-center flex-col mt-10">
-          <h1 className="text-2xl font-bold mb-4 text-center">You are invited to our 30th Anniversary</h1>
-          {/* Registration form or content goes here */}
-          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
-                <Input type="text" onChange={handleChange} name="company" label="Company" placeholder="Enter your company" />
-                <button
-                  type="submit"
-                  className="bg-green-800 col-span-6 transitions hover:bg-opacity-80 border font-bold border-black flex-rows gap-4 text-white
-                   p-4 rounded-md w-full"
-                >
-                  REGISTER
-                </button>
-            </form>
-          </div>
-        </main>
+        {status === "loading" &&  <main className="flex justify-center items-center flex-col mt-10">
+            <h1 className="text-2xl font-bold mb-4 text-center">You are invited to our 30th Anniversary</h1>
+            {/* Registration form or content goes here */}
+            <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                  <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
+                  <Input type="text" onChange={handleChange} name="company" label="Company" placeholder="Enter your company" />
+                  <button
+                    type="submit"
+                    className="bg-green-800 col-span-6 transitions hover:bg-opacity-80 border font-bold border-black flex-rows gap-4 text-white
+                    p-4 rounded-md w-full"
+                  >
+                    REGISTER
+                  </button>
+              </form>
+            </div>
+          </main>
+        }
+        {status === "success" && (
+            <div className="flex justify-center items-center flex-col mt-10">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-24 w-24 text-green-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <circle cx="12" cy="12" r="10" stroke="currentColor" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12l2 2 4-4"
+                />
+              </svg>
+              <h1 className="text-xl font-bold text-green-600">
+                Registration Successful!
+              </h1>
+            </div>
+          )}
       </div>
     </>
   )
