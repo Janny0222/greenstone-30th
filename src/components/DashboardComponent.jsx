@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Users, PlusCircle, LogOut, Leaf, Menu, ScanBarcode } from "lucide-react";
+import { List, PlusCircle, UsersRound, LogOut, Leaf, Menu, ScanBarcode } from "lucide-react";
 import AddGuestModal from "./modals/AddGuestModal";
 import { useGuestListStore } from "../store/guestListStore";
 import { QRCodeGenerator } from "./QRCodeGenerator";
 import { socket } from "../socket";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardComponent() {
   const [activeTab, setActiveTab] = useState("guestList");
@@ -11,6 +12,7 @@ export default function DashboardComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { fetchGuests, guests, updateGuestStatus } = useGuestListStore();
 
+  const router = useNavigate();
   useEffect(() => {
     fetchGuests();
   }, [fetchGuests]);
@@ -24,7 +26,29 @@ export default function DashboardComponent() {
     };
   }, [updateGuestStatus]);
 
-  const handleAddGuest = () => setAddGuestModalOpen(true);
+  useEffect(() => {
+    socket.on("new-guest", (updatedGuest) => {
+      fetchGuests();
+    });
+    return () => {
+      socket.off("new-guest");
+    };
+  }, [fetchGuests]);
+
+
+  const handleAddGuest = () => {
+    if (window.innerWidth < 1072) {
+      router("/registration");
+    } else {
+      
+      setAddGuestModalOpen(true);
+    }
+  } 
+
+  const handleQRScan = () => {
+    // Logic for handling QR scan can be implemented here
+    router("/qr-scan");
+  };
   console.log(guests);
   return (
     <>
@@ -53,7 +77,7 @@ export default function DashboardComponent() {
                     : "hover:bg-green-700"
                 }`}
               >
-                <Users className="w-5 h-5" />
+                <List className="w-5 h-5" />
                 Guest List
               </button>
 
@@ -62,11 +86,11 @@ export default function DashboardComponent() {
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700 transition"
               >
                 <PlusCircle className="w-5 h-5" />
-                Add Guest
+                Register
               </button>
 
               <button
-                onClick={handleAddGuest}
+                onClick={handleQRScan}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700 transition"
               >
                 <ScanBarcode className="w-5 h-5" />
@@ -74,7 +98,7 @@ export default function DashboardComponent() {
               </button>
 
               <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700 transition">
-                <LogOut className="w-5 h-5" />
+                <UsersRound className="w-5 h-5" />
                 Attendees
               </button>
             </nav>
@@ -102,7 +126,7 @@ export default function DashboardComponent() {
                     : "hover:bg-green-700"
                 }`}
               >
-                <Users className="w-5 h-5" />
+                <UsersRound className="w-5 h-5" />
                 Guest List
               </button>
 

@@ -15,9 +15,7 @@ export const Input = ({
     <div className="text-sm w-full">
       <label
         htmlFor={name}
-        className={`${
-          navbar ? "text-black" : "text-white"
-        } font-semibold text-xs`}
+        className={ `text-blackfont-semibold text-lg`}
       >
         {label}
       </label>
