@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { List, PlusCircle, UsersRound, LogOut, Leaf, Menu, ScanBarcode } from "lucide-react";
+import { List, PlusCircle, UsersRound, LogOut, Menu, ScanBarcode } from "lucide-react";
 import AddGuestModal from "./modals/AddGuestModal";
 import { useGuestListStore } from "../store/guestListStore";
 import { QRCodeGenerator } from "./QRCodeGenerator";
@@ -10,7 +10,7 @@ export default function DashboardComponent() {
   const [activeTab, setActiveTab] = useState("guestList");
   const [addGuestModalOpen, setAddGuestModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { fetchGuests, guests, updateGuestStatus } = useGuestListStore();
+  const { fetchGuests, guests } = useGuestListStore();
 
   const router = useNavigate();
   useEffect(() => {
@@ -18,16 +18,16 @@ export default function DashboardComponent() {
   }, [fetchGuests]);
 
   useEffect(() => {
-    socket.on("scan-guest-updated", (updatedGuest) => {
-      updateGuestStatus(updatedGuest);
+    socket.on("scan-guest-updated", () => {
+      fetchGuests();
     });
     return () => {
       socket.off("scan-guest-updated");
     };
-  }, [updateGuestStatus]);
+  }, [fetchGuests]);
 
   useEffect(() => {
-    socket.on("new-guest", (updatedGuest) => {
+    socket.on("new-guest", () => {
       fetchGuests();
     });
     return () => {
@@ -37,12 +37,7 @@ export default function DashboardComponent() {
 
 
   const handleAddGuest = () => {
-    if (window.innerWidth < 1072) {
       router("/registration");
-    } else {
-      
-      setAddGuestModalOpen(true);
-    }
   } 
 
   const handleQRScan = () => {
@@ -63,8 +58,8 @@ export default function DashboardComponent() {
           <div className="flex items-center justify-between px-4 py-3 md:px-8">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <Leaf className="w-7 h-7 text-emerald-300" />
-              <span className="font-extrabold text-lg">Greenstone 30th</span>
+              <img src="/logo192.png" className="h-10 w-10" alt="" />
+              <span className="font-extrabold text-lg">Greenstone @ 30th</span>
             </div>
 
             {/* Desktop Nav */}
@@ -126,7 +121,7 @@ export default function DashboardComponent() {
                     : "hover:bg-green-700"
                 }`}
               >
-                <UsersRound className="w-5 h-5" />
+                <List className="w-5 h-5" />
                 Guest List
               </button>
 
@@ -139,6 +134,16 @@ export default function DashboardComponent() {
               >
                 <PlusCircle className="w-5 h-5" />
                 Add Guest
+              </button>
+              <button
+                onClick={() => {
+                  handleQRScan();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700"
+              >
+                <ScanBarcode className="w-5 h-5" />
+                QR Scan
               </button>
 
               <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700">
@@ -164,9 +169,9 @@ export default function DashboardComponent() {
           {/* Guest List */}
           {activeTab === "guestList" && (
             <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full table-auto">
-                  <thead>
+              <div className="overflow-y-scroll h-[600px]">
+                <table className="w-full table-auto ">
+                  <thead className="bg-green-200">
                     <tr className="bg-green-100 text-green-900 text-sm uppercase tracking-wide">
                       <th className="px-4 py-3 text-left">Name</th>
                       <th className="px-4 py-3 text-left">Company</th>

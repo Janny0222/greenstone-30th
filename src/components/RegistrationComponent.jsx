@@ -3,6 +3,7 @@ import React from 'react'
 import { Input } from './ui/UserInput'
 import { addGuest } from '../services/guestListServices'
 import BeatLoaders from './ui/loader/BeatLoader'
+import { QRCodeGenerator } from './QRCodeGenerator'
 
 const RegistrationComponent = () => {
   const [formData, setFormData] = React.useState({
@@ -49,13 +50,14 @@ const RegistrationComponent = () => {
           <div className="flex items-center justify-between px-4 py-3 md:px-8">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <Leaf className="w-7 h-7 text-emerald-300" />
+              <img src="/logo192.png" alt="Logo" className="h-10 w-10"/>
               <span className="font-extrabold text-lg">Greenstone 30th</span>
             </div>
           </div>
         </header>
-        {status === "loading" &&  <main className="flex justify-center items-center flex-col mt-10">
-            <h1 className="text-2xl font-bold mb-4 text-center">You are invited to our 30th Anniversary</h1>
+        {status === "loading" &&  
+          <main className="flex justify-center items-center flex-col mt-10">
+            <h1 className="text-2xl font-bold mb-4 text-center">You are cordially invited to the 30th Anniversary of Greenstone</h1>
             {/* Registration form or content goes here */}
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -92,6 +94,11 @@ const RegistrationComponent = () => {
               <h1 className="text-xl font-bold text-green-600">
                 Registration Successful!
               </h1>
+              <div className='mt-4 p-4 bg-white rounded-lg shadow-md'>
+                
+                <QRCodeGenerator data={guestData.name} />
+              </div>
+              <span className='font-bold'>Please show this QR Code at the event entrance.</span>
             </div>
           )}
       </div>

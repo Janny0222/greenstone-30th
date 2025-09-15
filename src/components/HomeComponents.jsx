@@ -28,7 +28,7 @@ export default function HomeComponents() {
         transition={{ duration: 1 }}
       >
         <div className="flex justify-center mb-4">
-          <Leaf className="w-12 h-12 text-emerald-300 drop-shadow-lg" />
+          <img src="/logo192.png" className="h-14 w-14" alt="" />
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
           Welcome to the <span className="text-emerald-300">30th Anniversary</span>

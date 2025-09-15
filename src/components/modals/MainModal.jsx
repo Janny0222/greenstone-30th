@@ -28,7 +28,7 @@ const MainModal = ({ modalOpen, setModalOpen, children }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0"
             >
-              <DialogBackdrop className="fixed inset-0 backdrop-blur-sm bg-palette-background-accent" />
+              <DialogBackdrop className="fixed inset-0 backdrop-blur-sm bg-palette-background-accent bg-opacity-50" />
             </TransitionChild>
 
             <span
