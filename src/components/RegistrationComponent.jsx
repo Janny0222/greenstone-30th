@@ -1,6 +1,5 @@
-import { Leaf } from 'lucide-react'
 import React from 'react'
-import { Input } from './ui/UserInput'
+import { Input, Select } from './ui/UserInput'
 import { addGuest } from '../services/guestListServices'
 import BeatLoaders from './ui/loader/BeatLoader'
 import { QRCodeGenerator } from './QRCodeGenerator'
@@ -9,6 +8,7 @@ const RegistrationComponent = () => {
   const [formData, setFormData] = React.useState({
           name: "",
           company: "",
+          userType: ""
       })
   const [guestData, setGuestData] = React.useState(null)
   const [error, setError] = React.useState(null)
@@ -63,6 +63,7 @@ const RegistrationComponent = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                   <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
                   <Input type="text" onChange={handleChange} name="company" label="Company" placeholder="Enter your company" />
+                  <Select options={["Guest", "Employee"]} value={formData.userType} onChange={handleChange} name="userType" label="Guest or Employee ?" />
                   <button
                     type="submit"
                     className="bg-green-800 col-span-6 transitions hover:bg-opacity-80 border font-bold border-black flex-rows gap-4 text-white
@@ -71,6 +72,7 @@ const RegistrationComponent = () => {
                     REGISTER
                   </button>
               </form>
+              {error && <p className="text-red-500 mt-2">{error.error}</p>}
             </div>
           </main>
         }
@@ -98,7 +100,7 @@ const RegistrationComponent = () => {
                 
                 <QRCodeGenerator data={guestData.name} />
               </div>
-              <span className='font-bold'>Please show this QR Code at the event entrance.</span>
+              <span className='font-bold text-center mt-2'>Please show this QR Code at the event entrance.</span>
             </div>
           )}
       </div>

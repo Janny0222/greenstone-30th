@@ -4,16 +4,22 @@ import './index.css';
 import QrScanner from './components/ScannerComponent';
 import HomePage from './page/HomePage';
 import DashboardPage from './page/DashboardPage';
-import RegistrationComponent from './components/RegistrationComponent';
+import AttendeePage from './page/AttendeePage';
+import RegistrationPage from './page/RegistrationPage';
+import Toastify from './components/ToastComponent';
 
 function App() {
   return (
+    <>
+    <Toastify />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/registration" element={<RegistrationComponent />} />
+      <Route path="/registration" element={<RegistrationPage />} />
+      <Route path="/attendees" element={<AttendeePage />} />
       <Route path="/qr-scan" element={<QrScanner />} />
     </Routes>
+    </>
   );
 }
 

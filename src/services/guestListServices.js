@@ -17,3 +17,8 @@ export const getGuestByName = async (name) => {
   const response = await axios.get(`${backendUrl}/api/v1/guests/${name}`);
   return response.data;
 }
+
+export const getGuestByUserType = async (userType) => {
+  const response = await axios.get(`${backendUrl}/api/v1/guests/type/${userType}`);
+  return response.data;
+}

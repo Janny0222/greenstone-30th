@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { LayoutDashboard , Leaf } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 export default function HomeComponents() {
   return (

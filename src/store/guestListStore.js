@@ -19,5 +19,13 @@ export const useGuestListStore = create((set) => ({
             guest.id === updatedGuest.id ? updatedGuest : guest
         ),
     })),
+    fetchGuestsByType: async (userType) => {
+        try {
+            const guests = await getGuestList(userType);
+            set({ guests });
+        } catch (error) {
+            console.error("Error fetching guest list by type:", error);
+        }
+    },
 }))
 
