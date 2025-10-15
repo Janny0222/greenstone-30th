@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendUrl = process.env.REACT_APP_API_URL || 'http://10.20.10.203:3001';
+const backendUrl = 'http://localhost:3001';
 
 export const getGuestList = async () => {
   const response = await axios.get(`${backendUrl}/api/v1/guests`

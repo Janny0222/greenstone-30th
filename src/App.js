@@ -7,6 +7,7 @@ import DashboardPage from './page/DashboardPage';
 import AttendeePage from './page/AttendeePage';
 import RegistrationPage from './page/RegistrationPage';
 import Toastify from './components/ToastComponent';
+import RafflePage from './page/RafflePage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/registration" element={<RegistrationPage />} />
       <Route path="/attendees" element={<AttendeePage />} />
       <Route path="/qr-scan" element={<QrScanner />} />
+      <Route path="/raffle" element={<RafflePage />} />
     </Routes>
     </>
   );

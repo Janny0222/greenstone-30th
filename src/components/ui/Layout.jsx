@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, PlusCircle, UsersRound, Menu, ScanBarcode } from "lucide-react";
+import { List, PlusCircle, UsersRound, Menu, ScanBarcode, Gift } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Layout = ({ children }) => {
@@ -14,6 +14,11 @@ const Layout = ({ children }) => {
     const handleQRScan = () => {
         // Logic for handling QR scan can be implemented here
         router("/qr-scan");
+    };
+
+    const handleRaffle = () => {
+        // Logic for handling QR scan can be implemented here
+        router("/raffle");
     };
     const handleAttendees = () => {
          router("/attendees");
@@ -44,6 +49,14 @@ const Layout = ({ children }) => {
               >
                 <PlusCircle className="w-5 h-5" />
                 Register
+              </button>
+
+              <button
+                onClick={handleRaffle}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:text-white hover:bg-green-700 transition"
+              >
+                <Gift className="w-5 h-5" />
+                Raffle
               </button>
 
               <button
@@ -91,6 +104,16 @@ const Layout = ({ children }) => {
               >
                 <PlusCircle className="w-5 h-5" />
                 Add Guest
+              </button>
+              <button
+                onClick={() => {
+                  handleRaffle();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:text-white hover:bg-green-700 transition"
+              >
+                <Gift className="w-5 h-5" />
+                Raffle
               </button>
               <button
                 onClick={() => {

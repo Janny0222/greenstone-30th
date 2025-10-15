@@ -7,7 +7,7 @@ import { QRCodeGenerator } from './QRCodeGenerator'
 const RegistrationComponent = () => {
   const [formData, setFormData] = React.useState({
           name: "",
-          company: "",
+          group: "",
           userType: ""
       })
   const [guestData, setGuestData] = React.useState(null)
@@ -62,8 +62,8 @@ const RegistrationComponent = () => {
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
               <form onSubmit={handleSubmit} className="space-y-4">
                   <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
-                  <Input type="text" onChange={handleChange} name="company" label="Company" placeholder="Enter your company" />
-                  <Select options={["Guest", "Employee"]} value={formData.userType} onChange={handleChange} name="userType" label="Guest or Employee ?" />
+                  <Select options={["Balintawak-Office", "SQ-Office"]} title="Choose Group" value={formData.group} onChange={handleChange} name="group" label="Choose Group" />
+                  
                   <button
                     type="submit"
                     className="bg-green-800 col-span-6 transitions hover:bg-opacity-80 border font-bold border-black flex-rows gap-4 text-white

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import MainModal from "../../modals/MainModal";
 import { GridLoader } from "react-spinners";
+import { useErrorMessage } from "../../../context/ErrorContext";
 
 const GridLoaders = ({
   modalOpen,
@@ -8,15 +9,23 @@ const GridLoaders = ({
   result,
   handleGoBack,
 }) => {
+  const {error} = useErrorMessage();
   useEffect(() => {
     if (status === "success") {
       const timer = setTimeout(() => {
         handleGoBack();
-      }, 3000);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    } else if (status === "error") {
+      const timer = setTimeout(() => {
+        handleGoBack();
+      }, 1000);
 
       return () => clearTimeout(timer);
     }
   }, [status, handleGoBack]);
+
 
   return (
     <MainModal modalOpen={modalOpen} setModalOpen={handleGoBack}>
@@ -68,7 +77,7 @@ const GridLoaders = ({
           {status === "error" && (
             <>
               <h1 className="text-xl font-bold text-red-600">
-                Verification Failed!
+                { error }
               </h1>
               <button
                 type="button"

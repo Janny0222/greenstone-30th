@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddGuestModal from "./modals/AddGuestModal";
 import { useGuestListStore } from "../store/guestListStore";
-import { QRCodeGenerator } from "./QRCodeGenerator";
 import { socket } from "../socket";
 import Layout from "./ui/Layout";
 
@@ -52,10 +51,8 @@ export default function DashboardComponent() {
                   <thead className="bg-green-200">
                     <tr className="bg-green-100 text-green-900 text-sm uppercase tracking-wide">
                       <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">Company</th>
-                      <th className="px-4 py-3 text-left">QR Code</th>
+                      <th className="px-4 py-3 text-left">Group</th>
                       <th className="px-4 py-3 text-left">Present</th>
-                      <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="text-sm divide-y divide-gray-200">
@@ -66,10 +63,7 @@ export default function DashboardComponent() {
                             {guest.name}
                           </td>
                           <td className="px-4 py-3 text-gray-600">
-                            {guest.company}
-                          </td>
-                          <td className="px-4 py-3">
-                            <QRCodeGenerator data={guest.name} />
+                            {guest.group}
                           </td>
                           <td className="px-4 py-3">
                             {guest.isAttending ? (
@@ -81,14 +75,6 @@ export default function DashboardComponent() {
                                 No
                               </span>
                             )}
-                          </td>
-                          <td className="px-4 py-3 space-x-3">
-                            <button className="text-blue-600 hover:underline">
-                              Edit
-                            </button>
-                            <button className="text-red-600 hover:underline">
-                              Delete
-                            </button>
                           </td>
                         </tr>
                       ))

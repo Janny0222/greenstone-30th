@@ -33,7 +33,7 @@ export const Input = ({
   );
 };
 
-export const Select = ({ options, name, label, onChange, value }) => {
+export const Select = ({ options, title, name, label, onChange, value }) => {
   return (
     <div className="text-sm w-full">
       <label htmlFor={name} className="font-semibold text-lg">
@@ -47,7 +47,7 @@ export const Select = ({ options, name, label, onChange, value }) => {
         className="w-full text-sm mt-1 p-2 border border-border rounded text-black bg-white"
       >
         <option value="" disabled>
-          Select Role
+          {title}
         </option>
         {options.map((option, index) => (
           <option key={index} value={option}>

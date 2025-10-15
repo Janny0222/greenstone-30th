@@ -5,12 +5,14 @@ import { getGuestByName } from "../services/guestListServices";
 
 import GridLoaders from "./ui/loader/GridLoader";
 import { addAttendee } from "../services/guestAttendeeServices";
+import { useErrorMessage } from "../context/ErrorContext";
 
 
 const QrScanner = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [result, setResult] = useState("");
   const [status, setStatus] = useState("idle")
+  const { setError} = useErrorMessage();
   const isScanning = useRef(true);
 
   const handleScan = async (data) => {
@@ -24,7 +26,7 @@ const QrScanner = () => {
       try {
           const guest = await getGuestByName(data);
           if (guest?.name === data) {
-            const guestAttendee = await addAttendee({ name: guest.name, company: guest.company, userType: guest.userType });
+            const guestAttendee = await addAttendee({ name: guest.name, group: guest.group, userType: guest.userType });
 
               if(guestAttendee?.error){
                 console.error("Error adding attendee:", guestAttendee.error);
@@ -33,6 +35,7 @@ const QrScanner = () => {
                 setStatus("success");
               }
           } else {
+            setError("Guest not found | Invalid QR Code");
             setStatus("error");
           }
         

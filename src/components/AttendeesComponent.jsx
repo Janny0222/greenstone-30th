@@ -37,10 +37,10 @@ const AttendeesComponent = () => {
   }, [fetchGuestAttendees, fetchGuests]);
 
   useEffect(() => {
-    socket.on("guest-verified", () => {
+    socket.on("guest-verified", (guest) => {
       fetchGuestAttendees();
       fetchGuests();
-      toast.success(`Guest has been verified`, 
+      toast.success(`Guest has been verified ${guest.name}`, 
         {
           autoClose: 2000,
           onOpen: () => {
@@ -116,7 +116,12 @@ const AttendeesComponent = () => {
           <div className='col-span-3 border rounded-sm border-black shadow-md'>
             <h1 className='text-xl font-bold text-center p-2'>EXPECTED EMPLOYEES</h1>
             <hr  className='border-black'/>
-            <Table tableHead={employeeTableHead} data={guests.filter((guest) => guest.userType === "Employee" && !guest.isAttending)} rowRender={employeeRowRenderer}  />
+            {guests.filter((guest) => guest.userType === "Employee" && !guest.isAttending).length > 0 ?  (<Table tableHead={employeeTableHead} data={guests.filter((guest) => guest.userType === "Employee" && !guest.isAttending)} rowRender={employeeRowRenderer}  />
+            ) : (
+              <div className='flex justify-center items-center h-48'>
+                <h1 className='text-2xl font-bold text-center'>All Employees have arrived.</h1>
+              </div>
+            )}
           </div>
         </div>
       </div>
