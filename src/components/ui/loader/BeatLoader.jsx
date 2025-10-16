@@ -14,7 +14,6 @@ const BeatLoaders = ({ modalOpen, setModalOpen, guestData, setStatus, status }) 
       return () => clearTimeout(timer);
     }
   }, [guestData, setModalOpen, setStatus]);
-  console.log(guestData)
   return (
     <MainModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
       <div className="inline-block bg-white transitions sm:w-2/4 border shadow-xl relative rounded-2xl md:w-2/5 lg:w-2/6 w-full h-full align-middle">

@@ -20,7 +20,7 @@ const GridLoaders = ({
     } else if (status === "error") {
       const timer = setTimeout(() => {
         handleGoBack();
-      }, 2000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
@@ -77,7 +77,7 @@ const GridLoaders = ({
           {status === "error" && (
             <>
               <h1 className="text-xl font-bold text-red-600">
-                { errorMessage }
+                { errorMessage } - { result }
               </h1>
               <button
                 type="button"

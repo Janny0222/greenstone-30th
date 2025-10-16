@@ -20,7 +20,6 @@ const RegistrationComponent = () => {
       e.preventDefault();
       try {
           const registeredGuest = await addGuest(formData);
-          console.log(registeredGuest)
           if(registeredGuest.error){
               setError(registeredGuest)
               setStatus("loading")

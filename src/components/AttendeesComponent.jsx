@@ -64,11 +64,10 @@ const AttendeesComponent = () => {
       };
     }, [fetchGuests]);
 
-  console.log(guests.filter((guest) => guest.userType === "Employee"));
   const rowRenderer = (attendee) => (
     <>
       <td className={`px-6 ${Text} py-4`}>{attendee.name}</td>
-      <td className={`px-6 ${Text} py-4`}>{attendee.company}</td>
+      <td className={`px-6 ${Text} py-4`}>{attendee.department}</td>
       <td className={`px-6 ${Text} py-4`}>{new Date(attendee.time_arrival).toLocaleString().split(",")[1]}</td>
     </>
   )

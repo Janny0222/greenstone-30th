@@ -1,11 +1,10 @@
-"use client";
 import { useRef, useState } from "react";
 import { QrReader } from "@cmdnio/react-qr-reader";
 import { getGuestByName } from "../services/guestListServices";
-
 import GridLoaders from "./ui/loader/GridLoader";
 import { addAttendee } from "../services/guestAttendeeServices";
 import { useErrorMessage } from "../context/ErrorContext";
+
 
 
 const QrScanner = () => {
@@ -25,9 +24,9 @@ const QrScanner = () => {
 
       try {
           const guest = await getGuestByName(data);
-          alert(guest.response.data);
+          alert(guest?.name)
           if (guest?.name === data) {
-            const guestAttendee = await addAttendee({ name: guest.name, group: guest.group, userType: guest.userType });
+            const guestAttendee = await addAttendee({ name: guest.name, department: guest.department, group: guest.group, userType: guest.userType });
 
               if(guestAttendee?.error){
                 console.error("Error adding attendee:", guestAttendee.error);
@@ -41,7 +40,8 @@ const QrScanner = () => {
           }
         
       } catch (error) {
-        setErrorMessage("Guest not found | Invalid QR Code");
+        // setErrorMessage(error.data.message);
+        alert(error)
         setStatus("error");
       } 
     
@@ -70,7 +70,7 @@ const QrScanner = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
       {status === 'idle' &&  (
         <> 
-        <h2 className="text-xl font-bold mb-4">📷 Scan Guest QR Code</h2>
+        <h2 className="text-xl font-bold mb-4">📷 Scan Guest QR Code {result}</h2>
           <div className="relative w-full max-w-md aspect-square border-4 border-green-500 rounded-xl overflow-hidden shadow-lg">
             <QrReader
               constraints={{ 

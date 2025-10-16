@@ -14,6 +14,7 @@
     "framer-motion": "^12.23.12",
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^0.541.0",
+    "path-browserify": "^1.0.1",
     "qrcode.react": "^4.2.0",
     "react": "^18.0.1",
     "react-dom": "^18.0.1",
@@ -31,10 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "upload-s3": "aws s3 sync build/ s3://greenstonepackagingcorp",
-    "invalid-cf-cache": "aws cloudfront create-invalidation --distribution-id E1MMGK0YC5VYUQ --paths '/*'",
-    "deploy-s3": "npm run build && npm run upload-s3"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

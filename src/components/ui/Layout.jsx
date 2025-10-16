@@ -126,7 +126,10 @@ const Layout = ({ children }) => {
                 QR Scan
               </button>
 
-              <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700">
+              <button onClick={() => {
+                  handleAttendees();
+                  setMobileMenuOpen(false);
+                }} className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-700">
                 <UsersRound className="w-5 h-5" />
                 Attendees
               </button>
