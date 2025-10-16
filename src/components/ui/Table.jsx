@@ -10,7 +10,7 @@ const Table = ({ tableHead, data, rowRender }) => {
   return (
     <div className="overflow-x-scroll overflow-y-scroll h-[500px] overflow-hidden relative w-full">
       <table className="w-full table-auto border border-border divide-y divide-border">
-        <thead className="border-black">
+        <thead className="">
           <tr className="bg-white">
             {tableHead?.map((head, index) => (
               <th key={index} scope="col" className={`${Head}`}>

@@ -30,6 +30,8 @@ export default function DashboardComponent() {
     };
   }, [fetchGuests]);
 
+  const result = true + true
+  console.log(result)
 
   return (
     <Layout>

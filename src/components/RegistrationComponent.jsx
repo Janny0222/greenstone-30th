@@ -8,6 +8,7 @@ const RegistrationComponent = () => {
   const [formData, setFormData] = React.useState({
           name: "",
           group: "",
+          department: "",
           userType: ""
       })
   const [guestData, setGuestData] = React.useState(null)
@@ -15,20 +16,21 @@ const RegistrationComponent = () => {
   const [modalOpen, setModalOpen] = React.useState(false)
   const [status, setStatus] = React.useState("loading"); // loading | success
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const registeredGuest = addGuest(formData);
-          
+          const registeredGuest = await addGuest(formData);
+          console.log(registeredGuest)
           if(registeredGuest.error){
               setError(registeredGuest)
               setStatus("loading")
           } else {
-              registeredGuest.then(data => setGuestData(data))
+              setGuestData(registeredGuest)
               setModalOpen(true)
               
               setFormData({})
           }
+          console.log(formData)
       } catch (error) {
           setError({error: "An error occurred. Please try again."})
       }
@@ -62,6 +64,7 @@ const RegistrationComponent = () => {
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
               <form onSubmit={handleSubmit} className="space-y-4">
                   <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
+                  <Input type="text" onChange={handleChange} name="department" label="Department" placeholder="Enter Department" />
                   <Select options={["Balintawak-Office", "SQ-Office"]} title="Choose Group" value={formData.group} onChange={handleChange} name="group" label="Choose Group" />
                   
                   <button

@@ -12,7 +12,7 @@ const QrScanner = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [result, setResult] = useState("");
   const [status, setStatus] = useState("idle")
-  const { setError} = useErrorMessage();
+  const { setErrorMessage} = useErrorMessage();
   const isScanning = useRef(true);
 
   const handleScan = async (data) => {
@@ -25,6 +25,7 @@ const QrScanner = () => {
 
       try {
           const guest = await getGuestByName(data);
+          alert(guest.response.data);
           if (guest?.name === data) {
             const guestAttendee = await addAttendee({ name: guest.name, group: guest.group, userType: guest.userType });
 
@@ -35,12 +36,12 @@ const QrScanner = () => {
                 setStatus("success");
               }
           } else {
-            setError("Guest not found | Invalid QR Code");
+            setErrorMessage("Guest not found or Invalid QR Code");
             setStatus("error");
           }
         
       } catch (error) {
-        console.error("Error fetching guest:", error);
+        setErrorMessage("Guest not found | Invalid QR Code");
         setStatus("error");
       } 
     
