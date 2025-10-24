@@ -13,13 +13,11 @@ const GridLoaders = ({
   useEffect(() => {
     if (status === "success") {
       const timer = setTimeout(() => {
-        handleGoBack();
       }, 1000);
 
       return () => clearTimeout(timer);
     } else if (status === "error") {
       const timer = setTimeout(() => {
-        handleGoBack();
       }, 5000);
 
       return () => clearTimeout(timer);
@@ -77,7 +75,7 @@ const GridLoaders = ({
           {status === "error" && (
             <>
               <h1 className="text-xl font-bold text-red-600">
-                { errorMessage } - { result }
+                { errorMessage }
               </h1>
               <button
                 type="button"

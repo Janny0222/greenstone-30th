@@ -8,7 +8,7 @@ const Table = ({ tableHead, data, rowRender }) => {
  
   if (!data) return null;
   return (
-    <div className="overflow-x-scroll overflow-y-scroll h-[500px] overflow-hidden relative w-full">
+    <div className="overflow-x-scroll h-[700px] overflow-hidden relative w-full">
       <table className="w-full table-auto border border-border divide-y divide-border">
         <thead className="">
           <tr className="bg-white">
