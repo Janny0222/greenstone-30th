@@ -64,7 +64,7 @@ const RegistrationComponent = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                   <Input type="text" onChange={handleChange} name="name" label="Name" placeholder="Enter your name" />
                   <Input type="text" onChange={handleChange} name="department" label="Department" placeholder="Enter Department" />
-                  <Select options={["Balintawak-Office", "SQ-Office"]} title="Choose Group" value={formData.group} onChange={handleChange} name="group" label="Choose Group" />
+                  <Select options={["Balintawak-Office", "SQ-Office", "Others"]} title="Choose Group" value={formData.group} onChange={handleChange} name="group" label="Choose Group" />
                   
                   <button
                     type="submit"
