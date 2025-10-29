@@ -19,12 +19,12 @@ const FirstRaffle = () => {
     router(path);
   }
 
-  // useEffect(() => {
-  //   socket.on("first-raffle-winner-updated", () => {
-  //     fetchFirstRaffleWinners();
-  //   });
-  //   return () => socket.off("first-raffle-winner-updated");
-  // }, [fetchFirstRaffleWinners]);
+  useEffect(() => {
+    socket.on("first-raffle-winner-updated", () => {
+      fetchFirstRaffleWinners();
+    });
+    return () => socket.off("first-raffle-winner-updated");
+  }, [fetchFirstRaffleWinners]);
 
   useEffect(() => {
       fetchFirstRaffleWinners();
