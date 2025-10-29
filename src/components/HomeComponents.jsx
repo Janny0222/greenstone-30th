@@ -41,7 +41,7 @@ export default function HomeComponents() {
         </p>
         
         <motion.a
-          href="/dashboard"
+          href="/attendees"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           className="inline-flex items-center gap-2 bg-emerald-400 text-green-900 font-semibold px-6 py-3 rounded-2xl shadow-lg hover:bg-emerald-300 transition-all"

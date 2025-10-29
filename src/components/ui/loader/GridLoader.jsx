@@ -8,6 +8,7 @@ const GridLoaders = ({
   status,
   result,
   handleGoBack,
+  message
 }) => {
   const {errorMessage} = useErrorMessage();
   useEffect(() => {
@@ -39,7 +40,7 @@ const GridLoaders = ({
           {status === "success" && (
             <>
               <span className="text-green-500 font-bold">
-                Welcome!{" "}
+                {message} {" "}
                 <span className="text-green-500 text-xl font-bold">
                   {result}
                 </span>

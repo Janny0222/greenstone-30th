@@ -1,12 +1,11 @@
 import { useRef, useState, useCallback } from "react";
 import { QrReader } from "@cmdnio/react-qr-reader";
-import { getGuestByName } from "../services/guestListServices";
 import GridLoaders from "./ui/loader/GridLoader";
-import { addAttendee } from "../services/guestAttendeeServices";
 import { useErrorMessage } from "../context/ErrorContext";
 import axios from "axios";
+import { scanFirstRaffle } from "../services/raffleWinnerServices";
 
-const QrScanner = () => {
+const FirstRaffleQRScanner = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [result, setResult] = useState("");
   const [status, setStatus] = useState("idle");
@@ -28,25 +27,9 @@ const QrScanner = () => {
       setResult(trimmedData);
 
       try {
-        const guest = await getGuestByName(trimmedData);
+        const guest = await scanFirstRaffle(trimmedData);
         if (guest?.name === trimmedData) {
-          const guestAttendee = await addAttendee({
-            name: guest.name,
-            department: guest.department,
-            group: guest.group,
-            userType: guest.userType,
-          });
-
-          if (guestAttendee?.error) {
-            console.error("Error adding attendee:", guestAttendee.error);
-            setErrorMessage(guestAttendee.error || "Failed to add attendee");
-            setStatus("error");
-          } else {
-            setStatus("success");
-          }
-        } else {
-          setErrorMessage(guest?.message || "Invalid QR Code");
-          setStatus("error");
+          setStatus("success");
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -82,12 +65,12 @@ const QrScanner = () => {
         status={status}
         result={result}
         handleGoBack={handleGoBack}
-        message={"Welcome!"}
+        message={"Congratulations! You are a First Raffle Winner!"}
       />
       <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
         {status === "idle" && (
           <>
-            <h2 className="text-xl font-bold mb-4">📷 Scan Guest QR Code</h2>
+            <h2 className="text-xl font-bold mb-4">📷 Scan QR First Raffle</h2>
             <div className="relative w-full max-w-md aspect-square border-4 border-green-500 rounded-xl overflow-hidden shadow-lg">
               <QrReader
                 constraints={{
@@ -118,4 +101,4 @@ const QrScanner = () => {
   );
 };
 
-export default QrScanner;
+export default FirstRaffleQRScanner;

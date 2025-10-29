@@ -6,23 +6,24 @@ import { useGuestListStore } from '../store/guestListStore';
 import { socket } from "../socket";
 import { toast } from 'react-toastify';
 import { chunkArray } from '../utils/chunkArray'; // 👈 helper function
+import { useNavigate } from "react-router-dom";
 
 const attendeeTableHead = [
   { key: 'name', label: 'Name' },
   { key: 'timeArrival', label: 'Time Arrival' }
 ];
 
-const employeeTableHead = [
-  { key: 'name', label: 'Name' },
-  { key: 'department', label: 'Department' }
-];
-
 const Text = "text-md text-left font-semibold whitespace-nowrap px-5 py-3";
 
 const AttendeesComponent = () => {
   const { fetchGuestAttendees, attendees } = useGuestAttendeeStore();
-  const { fetchGuests, guests } = useGuestListStore();
+  const { fetchGuests } = useGuestListStore();
   const audioRef = useRef(null);
+  const router = useNavigate();
+
+  const handleNavigate = (path) => {
+    router(path);
+  }
 
   useEffect(() => {
     audioRef.current = new Audio("/sounds/preview.mp3");
@@ -64,12 +65,7 @@ const AttendeesComponent = () => {
     </>
   );
 
-  const employeeRowRenderer = (employee) => (
-    <>
-      <td className={`px-6 ${Text} py-4`}>{employee.name}</td>
-      <td className={`px-6 ${Text} py-4`}>{employee.department}</td>
-    </>
-  );
+
 
   const balintawakAttendees = attendees.filter(a => a.group === "Balintawak-Office");
   const balintawakChunks = chunkArray(balintawakAttendees, 11);
@@ -77,13 +73,15 @@ const AttendeesComponent = () => {
   const sqAttendees = attendees.filter(a => a.group === "SQ-Office");
   const sqChunks = chunkArray(sqAttendees, 11);
 
-  const balintawakExpected = guests.filter(g => g.group === "Balintawak-Office" && !g.isAttending);
-  const sqExpected = guests.filter(g => g.group === "SQ-Office" && !g.isAttending);
 
   return (
     <Layout>
       <div className='container-fluid mx-auto flex flex-col p-5 lg:p-10'>
-
+        <div >
+          <button onClick={() => handleNavigate("/qr-scan")} className='bg-green-600 transitions border hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-5 shadow-lg'>
+            Scan QR Code
+          </button>
+        </div>
         {/* BALINTAWAK OFFICE */}
         <div className='grid grid-cols-10 gap-4 mb-5'>
           <div className='col-span-10 border rounded-sm border-black shadow-md'>
